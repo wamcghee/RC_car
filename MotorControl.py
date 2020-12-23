@@ -1,6 +1,8 @@
 import time
 import RPi.GPIO as GPIO
 
+GPIO.cleanup()
+
 GPIO.setmode(GPIO.BCM)
  
 class StepperMotor:
@@ -203,5 +205,3 @@ right_drive = DCMotorWithEncoder(23, 22, 27, 9, 11)
 
 steering.right(60, 60)
 steering.left(60, 60)
-
-GPIO.cleanup()
