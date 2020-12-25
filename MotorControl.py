@@ -193,24 +193,24 @@ class DCMotor:
             self.pwm.ChangeDutyCycle(-p)
 
 class Encoder:
-	'''
-	Keep data from a bipolar encoder
-	'''
+    '''
+    Keep data from a bipolar encoder
+    '''
 
-	def __init__(self, encoder_1, encoder_2, ratio = 750, angle = 0):
-		self.encoder_1 = encoder_1
-		self.encoder_2 = encoder_2
-		self.ratio = ratio
-		self.angle = angle
-		self.speed = 0
-		self.dir = True
-		self.e1_last = True
+    def __init__(self, encoder_1, encoder_2, ratio = 750, angle = 0):
+        self.encoder_1 = encoder_1
+        self.encoder_2 = encoder_2
+        self.ratio = ratio
+        self.angle = angle
+        self.speed = 0
+        self.dir = True
+        self.e1_last = True
 
-		# Setup encoder pins
-		GPIO.setup(self.encoder_1, GPIO.IN, pull_up_down=GPIO.PUD_UP) # Interrupt pin
-		GPIO.add_event_detect(self.encoder_1, GPIO.BOTH, callback = self.encoder_pulse)
-		GPIO.setup(self.encoder_2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-	
+        # Setup encoder pins
+        GPIO.setup(self.encoder_1, GPIO.IN, pull_up_down=GPIO.PUD_UP) # Interrupt pin
+        GPIO.add_event_detect(self.encoder_1, GPIO.BOTH, callback = self.encoder_pulse)
+        GPIO.setup(self.encoder_2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
     def encoder_pulse(self, x):
         '''
         Increment encoder position when interrupt pin changes.
@@ -218,16 +218,16 @@ class Encoder:
 
         e1_val = GPIO.input(self.encoder_1)
         if not self.e1_last and e1_val:
-        	e2_val = GPIO.input(self.encoder_2)
-        	if not e2_val and self.dir:
-        		self.dir = False
-        	elif e2_val and not self.dir:
-        		self.dir = True
+            e2_val = GPIO.input(self.encoder_2)
+            if not e2_val and self.dir:
+                self.dir = False
+            elif e2_val and not self.dir:
+                self.dir = True
         self.e1_last = e1_val
         if self.dir:
-        	self.angle = self.angle + 1/self.ratio
+            self.angle = self.angle + 1/self.ratio
         else:
-        	self.angle = self.angle - 1/self.ratio
+            self.angle = self.angle - 1/self.ratio
 
 steering = DCMotor(23, 22, 27)
 drive = DCMotor(15, 18, 17)
