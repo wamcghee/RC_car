@@ -206,10 +206,10 @@ class Encoder:
 		self.dir = True
 		self.e1_last = True
 
-        # Setup encoder pins
-        GPIO.setup(self.encoder_1, GPIO.IN, pull_up_down=GPIO.PUD_UP) # Interrupt pin
-        GPIO.add_event_detect(self.encoder_1, GPIO.BOTH, callback = self.encoder_pulse)
-        GPIO.setup(self.encoder_2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		# Setup encoder pins
+		GPIO.setup(self.encoder_1, GPIO.IN, pull_up_down=GPIO.PUD_UP) # Interrupt pin
+		GPIO.add_event_detect(self.encoder_1, GPIO.BOTH, callback = self.encoder_pulse)
+		GPIO.setup(self.encoder_2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
     def encoder_pulse(self, x):
         '''
