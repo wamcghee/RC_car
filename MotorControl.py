@@ -198,7 +198,7 @@ class Encoder:
 	'''
 
 	def __init__(self, encoder_1, encoder_2, ratio = 750, angle = 0):
-        self.encoder_1 = encoder_1
+		self.encoder_1 = encoder_1
         self.encoder_2 = encoder_2
         self.ratio = ratio
         self.angle = angle
