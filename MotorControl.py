@@ -229,7 +229,7 @@ class Encoder:
         else:
             self.angle = self.angle - 1/self.ratio
 
-steering = DCMotor(13, 15, 16)
-drive = DCMotor(10, 12, 11)
-left_encoder = Encoder(18, 19)
-right_encoder = Encoder(21, 19)
+steering = DCMotor(23, 22, 27)
+drive = DCMotor(15, 18, 17)
+left_encoder = Encoder(24, 10)
+right_encoder = Encoder(9, 11)
