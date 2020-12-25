@@ -210,7 +210,7 @@ class Encoder:
 		GPIO.setup(self.encoder_1, GPIO.IN, pull_up_down=GPIO.PUD_UP) # Interrupt pin
 		GPIO.add_event_detect(self.encoder_1, GPIO.BOTH, callback = self.encoder_pulse)
 		GPIO.setup(self.encoder_2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
+	
     def encoder_pulse(self, x):
         '''
         Increment encoder position when interrupt pin changes.
