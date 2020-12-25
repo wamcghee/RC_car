@@ -135,16 +135,35 @@ class DCMotorWithEncoder:
     '''
     
     def __init__(self, pwm_pin, in_1, in_2, encoder_1, encoder_2, ratio = 750, angle = 0):
+        self.motor = DCMotor(pwm_pin, in_1, in_2)
+        self.encoder = Encoder(encoder_1, encoder_2)
+
+    def encoder_pulse(self, x):
+        '''
+        Increment encoder position when interrupt pin changes.
+        '''
+        self.encoder.encoder_pulse(x)
+
+    def set_pwm(self, p):
+        '''
+        Set the motor direction and PWM duty cycle.
+
+        p: int -100 to 100. If p < 0, direction is reversed.
+           abs(p) is percent duty cycle.
+        '''
+        self.motor.set_pwm(p)
+
+
+
+class DCMotor:
+    '''
+    Control a DC motor with PWM speed control using L298N motor controller.
+    '''
+    
+    def __init__(self, pwm_pin, in_1, in_2):
         self.pwm_pin = pwm_pin
         self.in_1 = in_1
         self.in_2 = in_2
-        self.encoder_1 = encoder_1
-        self.encoder_2 = encoder_2
-        self.ratio = ratio
-        self.angle = angle
-        self.speed = 0
-        self.dir = True
-        self.e1_last = True
         
         # Setup PWM
         GPIO.setup(self.pwm_pin, GPIO.OUT) # Set pwm pin to be output
@@ -157,6 +176,36 @@ class DCMotorWithEncoder:
         GPIO.setup(self.in_2, GPIO.OUT)
         GPIO.output(self.in_2, False)
 
+    def set_pwm(self, p):
+        '''
+        Set the motor direction and PWM duty cycle.
+
+        p: int -100 to 100. If p < 0, direction is reversed.
+           abs(p) is percent duty cycle.
+        '''
+        if p > 0:
+            GPIO.output(self.in_1, True)
+            GPIO.output(self.in_2, False)
+            self.pwm.ChangeDutyCycle(p)
+        else:
+            GPIO.output(self.in_1, False)
+            GPIO.output(self.in_2, True)
+            self.pwm.ChangeDutyCycle(-p)
+
+class Encoder:
+	'''
+	Keep data from a bipolar encoder
+	'''
+
+	def __init__(self, encoder_1, encoder_2, ratio = 750, angle = 0):
+        self.encoder_1 = encoder_1
+        self.encoder_2 = encoder_2
+        self.ratio = ratio
+        self.angle = angle
+        self.speed = 0
+        self.dir = True
+        self.e1_last = True
+        
         # Setup encoder pins
         GPIO.setup(self.encoder_1, GPIO.IN, pull_up_down=GPIO.PUD_UP) # Interrupt pin
         GPIO.add_event_detect(self.encoder_1, GPIO.BOTH, callback = self.encoder_pulse)
@@ -179,29 +228,7 @@ class DCMotorWithEncoder:
         else:
             self.angle = self.angle - 1/self.ratio
 
-    def set_pwm(self, p):
-        '''
-        Set the motor direction and PWM duty cycle.
-
-        p: int -100 to 100. If p < 0, direction is reversed.
-           abs(p) is percent duty cycle.
-        '''
-        if p > 0:
-            GPIO.output(self.in_1, True)
-            GPIO.output(self.in_2, False)
-            self.pwm.ChangeDutyCycle(p)
-        else:
-            GPIO.output(self.in_1, False)
-            GPIO.output(self.in_2, True)
-            self.pwm.ChangeDutyCycle(-p)
-
-
-
-
-
-steering = StepperMotor(2, 3, 4, 14, 0)
-left_drive = DCMotorWithEncoder(15, 18, 17, 24, 10)
-right_drive = DCMotorWithEncoder(23, 22, 27, 9, 11)
-
-steering.right(60, 60)
-steering.left(60, 60)
+steering = DCMotor(23, 22, 27)
+drive = DCMotor(15, 18, 17)
+left_encoder = Encoder(24, 10)
+right_encoder = Encoder(9, 11)
