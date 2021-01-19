@@ -25,7 +25,7 @@ try:
             t_last = time.time()
             #client.send(data)
         elif time.time() - t_last > 0.5:
-        	drive.set_pwm(0)
+            drive.set_pwm(0)
             steering.set_pwm(0)
             break
 
