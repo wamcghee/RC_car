@@ -10,9 +10,10 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #s.connect((host_Address, port))
 s.bind((host_Address, port))
 s.listen(backlog)
+
 try:
     client, address = s.accept()
-    while 1:
+    while True:
         data = client.recv(size).decode()
         if data:
             #print(data)
@@ -24,6 +25,8 @@ try:
             t_last = time.time()
             #client.send(data)
         elif time.time() - t_last > 0.5:
+        	drive.set_pwm(0)
+            steering.set_pwm(0)
             break
 
 except:	
