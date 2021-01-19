@@ -1,11 +1,11 @@
 import socket
 
-hostMACAddress = 'E4:B3:18:95:C3:2D'
+host_Address = '192.168.1.67'
 port = 3
 backlog = 1
 size = 1024
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((hostMACAddress,port))
+s.connect((host_Address,port))
 s.listen(backlog)
 try:
     client, address = s.accept()
