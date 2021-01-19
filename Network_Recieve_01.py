@@ -1,7 +1,7 @@
 import socket
 
 host_Address = '192.168.1.67'
-port = 3
+port = 9999
 backlog = 1
 size = 1024
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
