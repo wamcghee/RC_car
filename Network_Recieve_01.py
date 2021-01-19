@@ -5,7 +5,7 @@ port = 9999
 backlog = 1
 size = 1024
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((host_Address,port))
+s.connect(('', port))
 s.listen(backlog)
 try:
     client, address = s.accept()
