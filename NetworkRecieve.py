@@ -24,7 +24,7 @@ try:
             t_last = time.time()
             #client.send(data)
         elif time.time() - t_last > 0.5:
-			break
+            break
 
 except:	
     print("Closing socket")	
