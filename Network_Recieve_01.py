@@ -11,10 +11,10 @@ s.listen(backlog)
 try:
     client, address = s.accept()
     while 1:
-        data = client.recv(size)
+        data = client.recv(size).decode()
         if data:
             print(data)
-            client.send(data)
+            #client.send(data)
 except:	
     print("Closing socket")	
     client.close()
