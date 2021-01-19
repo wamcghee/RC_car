@@ -33,3 +33,7 @@ except:
     print("Closing socket")	
     client.close()
     s.close()
+
+drive.set_pwm(0)
+steering.set_pwm(0)
+GPIO.cleanup()
