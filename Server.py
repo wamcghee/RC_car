@@ -30,7 +30,7 @@ class Server:
         self.connected = False
 
     def listen(self):
-        data = self.client.recv(1024).decode():
+        data = self.client.recv(1024).decode()
         if data and bool(data_func()):
         	if data == 'exit':
         		self.end_connection()

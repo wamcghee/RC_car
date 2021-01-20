@@ -27,4 +27,7 @@ while True:
 			print(e)
 			break
 
+drive.set_pwm(0)
+steering.set_pwm(0)
+GPIO.cleanup()
 server.end_connection()
