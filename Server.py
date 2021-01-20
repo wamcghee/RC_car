@@ -34,7 +34,6 @@ class Server:
         if data and bool(data_func()):
             if data == 'exit':
                 self.end_connection()
-                break
             data_func(data)
             self.t_last = time.time()
         elif time.time() - self.t_last > timeout:
