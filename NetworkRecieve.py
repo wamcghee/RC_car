@@ -30,10 +30,11 @@ while True:
 	            steering.set_pwm(0)
 	            #break
 
-#except:	
-    #print("Closing socket")	
-    #client.close()
-    #s.close()
+	except:
+		print('Failed to accept connection.')	
+	    #print("Closing socket")	
+	    #client.close()
+	    #s.close()
 
 drive.set_pwm(0)
 steering.set_pwm(0)
