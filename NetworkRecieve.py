@@ -14,6 +14,8 @@ s.listen(backlog)
 #while True:
 	#try:
 client, address = s.accept()
+t_last = time.time()
+
 while True:
     data = client.recv(size).decode()
     if data:
