@@ -27,7 +27,7 @@ try:
         elif time.time() - t_last > 0.5:
             drive.set_pwm(0)
             steering.set_pwm(0)
-            break
+            #break
 
 except:	
     print("Closing socket")	
@@ -37,3 +37,4 @@ except:
 drive.set_pwm(0)
 steering.set_pwm(0)
 GPIO.cleanup()
+s.close()
