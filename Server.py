@@ -32,8 +32,9 @@ class Server:
     def listen(self):
         data = self.client.recv(1024).decode()
         if data and bool(data_func()):
-        	if data == 'exit':
-        		self.end_connection()
+            if data == 'exit':
+                self.end_connection()
+                break
             data_func(data)
             self.t_last = time.time()
         elif time.time() - self.t_last > timeout:
