@@ -28,9 +28,10 @@ while True:
         t_last = time.time()
         #client.send(data)
     elif time.time() - t_last > 0.5:
+        print('Timed out')
         drive.set_pwm(0)
         steering.set_pwm(0)
-	            #break
+	    #break
 
 	#except:
 		#print('Failed to accept connection.')	

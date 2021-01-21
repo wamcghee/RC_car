@@ -11,23 +11,29 @@ class Server:
         self.connected = False
         self.client = None
         self.client_address = None
+        self.display = ('New socket: ' + self.server_IP + '\n' +
+        'Time: ' + time.asctime(time.localtime(time.time())) + '\n')
 
     def start_connection(self):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
             self.socket.bind((self.server_IP, self.port))
-            self.socket.listen()
-            self.connected = True
+            self.socket.listen(self.backlog)
             self.listen()
-            self.client, self.address = socket.accept()
+            self.client, self.client_address = socket.accept()
+            self.connected = True
             self.t_last = time.time()
+            self.display = ('Connection made.\n' +
+            'Time: ' + time.asctime(time.localtime(time.time())) + '\n')
         except Exception as e:
-            print('Error in connection')
-            print(e)
+            self.display = ('Error in connection.\n' + str(e) + '\n' + 
+            'Time: ' + time.asctime(time.localtime(time.time())) + '\n')
 
     def end_connection(self):
         self.socket.close()
         self.connected = False
+        self.display = ('Connection ended.\n' +
+        'Time: ' + time.asctime(time.localtime(time.time())) + '\n')
 
     def listen(self):
         data = self.client.recv(1024).decode()
@@ -36,5 +42,7 @@ class Server:
                 self.end_connection()
             data_func(data)
             self.t_last = time.time()
+            self.display = 'Transmission recieved.\n'
         elif time.time() - self.t_last > timeout:
             timeout_func()
+            self.display = 'Transmission timed out.\n'
