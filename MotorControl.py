@@ -127,6 +127,32 @@ class StepperMotor:
 
 
 
+class ServoMotor:
+    '''
+    Control a servo motor with PWM input.
+    '''
+
+    def __init __(self, pwm_pin, angle = 0, offset = 90, f_pwm = 50, dc_min = 5, angle_min = 0, dc_max = 10, angle_max = 180):
+        self.pwm_pin = pwm_pin
+        self.f_pwm = f_pwm
+        self.dc_min = dc_min
+        self.dc_max = dc_max
+        self.angle_min = angle_min
+        self.angle_max = angle_max
+        self.offset = offset
+        self.angle = angle
+
+        # Setup PWM
+        GPIO.setup(self.pwm_pin, GPIO.OUT) # Set pwm pin to be output
+        self.pwm = GPIO.PWM(self.pwm_pin, self.f_pwm) # Set pwm frequency
+        self.pwm.start(self.dc_min + (self.angle + self.offset - self.angle_min) / (self.dc_mac - self.dc_min)) # set duty cycle
+
+    def set_angle(angle):
+        if angle < 0: angle = 0
+        elif angle > 180: angle = 180
+        self.pwm.ChangeDutyCycle(self.dc_min + (angle + self.offset - self.angle_min) / (self.dc_mac - self.dc_min))
+        self.angle = angle
+
 
 
 class DCMotorWithEncoder:
@@ -229,7 +255,10 @@ class Encoder:
         else:
             self.angle = self.angle - 1/self.ratio
 
-steering = DCMotor(23, 22, 27)
+#steering = DCMotor(23, 22, 27)
+steering = ServoMotor(12)
 drive = DCMotor(15, 18, 17)
 left_encoder = Encoder(24, 10)
 right_encoder = Encoder(9, 11)
+
+# Servo PWM is 12
