@@ -147,7 +147,7 @@ class ServoMotor:
         self.pwm = GPIO.PWM(self.pwm_pin, self.f_pwm) # Set pwm frequency
         self.pwm.start(self.dc_min + (self.angle + self.offset - self.angle_min) / (self.dc_max - self.dc_min)) # set duty cycle
 
-    def set_angle(angle):
+    def set_angle(self, angle):
         if angle < 0: angle = 0
         elif angle > 180: angle = 180
         self.pwm.ChangeDutyCycle(self.dc_min + (angle + self.offset - self.angle_min) / (self.dc_max - self.dc_min))
