@@ -148,10 +148,11 @@ class ServoMotor:
         self.pwm.start(self.dc_min + (self.angle + self.offset - self.angle_min) / (self.dc_max - self.dc_min)) # set duty cycle
 
     def set_angle(self, angle):
-        if angle < 0: angle = 0
-        elif angle > 180: angle = 180
-        self.pwm.ChangeDutyCycle(self.dc_min + (angle + self.offset - self.angle_min) / (self.dc_max - self.dc_min))
-        self.angle = angle
+        new_angle = offset + angle
+        if new_angle < 0: new_angle = 0
+        elif new_angle > 180: new_angle = 180
+        self.pwm.ChangeDutyCycle(self.dc_min + (new_angle + self.offset - self.angle_min) / (self.dc_max - self.dc_min))
+        self.angle = new_angle
 
 
 
