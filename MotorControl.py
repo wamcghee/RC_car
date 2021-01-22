@@ -131,8 +131,8 @@ class ServoMotor:
     '''
     Control a servo motor with PWM input.
     '''
-    
-    def __init __(self, pwm_pin, angle = 0, offset = 90, f_pwm = 50, dc_min = 5, angle_min = 0, dc_max = 10, angle_max = 180):
+
+    def __init__(self, pwm_pin, angle = 0, offset = 90, f_pwm = 50, dc_min = 5, angle_min = 0, dc_max = 10, angle_max = 180):
         self.pwm_pin = pwm_pin
         self.f_pwm = f_pwm
         self.dc_min = dc_min
