@@ -24,7 +24,7 @@ while True:
         drive_val = float(str_data[0])
         steer_val = float(str_data[1])
         drive.set_pwm(int(100*drive_val))
-        steering.set_pwm(int(100*steer_val))
+        steering.set_angle(int(90*steer_val))
         t_last = time.time()
         #client.send(data)
     elif time.time() - t_last > 0.5:
@@ -40,6 +40,6 @@ while True:
 	    #s.close()
 
 drive.set_pwm(0)
-steering.set_pwm(0)
+steering.set_angle(0)
 GPIO.cleanup()
 s.close()

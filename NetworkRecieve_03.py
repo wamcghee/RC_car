@@ -15,7 +15,7 @@ def data_func(data):
     drive_val = float(str_data[0])
     steer_val = float(str_data[1])
     drive.set_pwm(int(100*drive_val))
-    steering.set_pwm(int(100*steer_val))
+    steering.set_angle(int(90*steer_val))
 
 server = Server(port, IP_address, 1, data_func, 0.5, timeout_func)
 
@@ -28,6 +28,6 @@ while True:
     server.end_connection()
 
 drive.set_pwm(0)
-steering.set_pwm(0)
+steering.set_angle(0)
 GPIO.cleanup()
 s.close()
