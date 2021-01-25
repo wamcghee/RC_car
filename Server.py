@@ -43,6 +43,7 @@ class Server:
         if data and bool(self.data_func):
             if data == 'exit':
                 self.end_connection()
+                return
             self.data_func(data)
             self.t_last = time.time()
             self.display = 'Transmission recieved.\n'
