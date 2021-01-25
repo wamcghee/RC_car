@@ -17,7 +17,7 @@ def data_func(data):
     drive.set_pwm(int(100*drive_val))
     steering.set_angle(int(-90*steer_val))
 
-server = Server(port, host_address, 1, data_func, 0.5, timeout_func)
+server = Server(port, host_Address, 1, data_func, 0.5, timeout_func)
 
 
 while True:
