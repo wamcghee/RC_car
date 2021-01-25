@@ -8,7 +8,7 @@ size = 1024
 
 def timeout_func():
     drive.set_pwm(0)
-    steering.set_pwm(0)
+    steering.set_angle(0)
 
 def data_func(data):
     str_data = data.split()
