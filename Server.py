@@ -13,6 +13,9 @@ class Server:
         self.client_address = None
         self.display = ('New socket: ' + self.server_IP + '\n' +
         'Time: ' + time.asctime(time.localtime(time.time())) + '\n')
+        self.data_func = data_func
+        self.timeout = timeout
+        self.timeout_func = timeout_func
 
     def start_connection(self):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -37,12 +40,12 @@ class Server:
 
     def listen(self):
         data = self.client.recv(1024).decode()
-        if data and bool(data_func()):
+        if data and bool(self.data_func()):
             if data == 'exit':
                 self.end_connection()
-            data_func(data)
+            self.data_func(data)
             self.t_last = time.time()
             self.display = 'Transmission recieved.\n'
-        elif time.time() - self.t_last > timeout:
-            timeout_func()
+        elif time.time() - self.t_last > self.timeout:
+            self.timeout_func()
             self.display = 'Transmission timed out.\n'
