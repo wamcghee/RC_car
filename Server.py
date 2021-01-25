@@ -40,12 +40,12 @@ class Server:
 
     def listen(self):
         data = self.client.recv(1024).decode()
-        if data and bool(self.data_func()):
+        if data and bool(self.data_func):
             if data == 'exit':
                 self.end_connection()
             self.data_func(data)
             self.t_last = time.time()
             self.display = 'Transmission recieved.\n'
         elif time.time() - self.t_last > self.timeout:
-            self.timeout_func()
+            if self.timeout_func: self.timeout_func()
             self.display = 'Transmission timed out.\n'
