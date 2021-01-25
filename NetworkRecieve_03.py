@@ -18,7 +18,7 @@ def data_func(data):
     steering.set_angle(int(-90*steer_val))
 
 while True:
-	server = Server(port, host_Address, backlog, data_func, 0.5, timeout_func)
+    server = Server(port, host_Address, backlog, data_func, 0.5, timeout_func)
     server.start_connection()
     while True:
         server.listen()
