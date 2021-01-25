@@ -1,4 +1,4 @@
-import Server
+from Server import *
 from MotorControl import *
 
 host_Address = '192.168.1.89'
