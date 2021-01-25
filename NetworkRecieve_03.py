@@ -17,11 +17,8 @@ def data_func(data):
     drive.set_pwm(int(100*drive_val))
     steering.set_angle(int(-90*steer_val))
 
-server = Server(port, host_Address, 1, data_func, 0.5, timeout_func)
-
-
 while True:
-    server = Server(port, host_Address, backlog, data_func, 0.5, timeout_func)
+	server = Server(port, host_Address, backlog, data_func, 0.5, timeout_func)
     server.start_connection()
     while True:
         server.listen()
@@ -30,4 +27,4 @@ while True:
 drive.set_pwm(0)
 steering.set_angle(0)
 GPIO.cleanup()
-s.close()
+server.end_connection()
