@@ -20,7 +20,7 @@ class Server:
             self.socket.bind((self.server_IP, self.port))
             self.socket.listen(self.backlog)
             self.listen()
-            self.client, self.client_address = socket.accept()
+            self.client, self.client_address = self.socket.accept()
             self.connected = True
             self.t_last = time.time()
             self.display = ('Connection made.\n' +
