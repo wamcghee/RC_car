@@ -50,3 +50,8 @@ class Server:
         elif time.time() - self.t_last > self.timeout:
             if self.timeout_func: self.timeout_func()
             self.display = 'Transmission timed out.\n'
+
+    def send(self, data):
+        if type(data) != bytes:
+            data = bytes(data, "UTF-8")
+        self.client.send(data)
