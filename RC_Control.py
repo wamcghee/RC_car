@@ -46,6 +46,7 @@ while True:
             break
         # Send data
         if image != None:
+            print("1")
             try:
                 server.send(image.tobytes())
                 image = None
