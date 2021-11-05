@@ -4,7 +4,6 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 
-
 # Internet information
 IP_address = '192.168.1.89'
 port = 9999
@@ -13,6 +12,8 @@ port = 9999
 cam_port = 0
 cam = cv2.VideoCapture(cam_port)
 resize_factor = 4
+global take_image
+image = None
 
 def timeout_func():
     drive.set_pwm(0)
@@ -24,7 +25,7 @@ def data_func():
     drive_val = float(str_data[0])
     steer_val = float(str_data[1])
     take_image = float(str_data[2])
-    drive.set_pwm(int(100*drive_val))
+    g.set_pwm(int(100*drive_val))
     steering.set_pwm(int(100*steer_val))
     if take_image:
         result, image = cam.read()
